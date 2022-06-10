@@ -54,7 +54,7 @@ resource "aws_instance" "dev5" {
 }
 
 resource "aws_instance" "dev6" {
-  provider      = "aws.us-east-1"
+  provider      = aws.us-east-1
   ami           = "ami-09cce346b3952cce3"
   instance_type = "t2.micro"
   key_name      = "terraform-kali"
@@ -62,6 +62,9 @@ resource "aws_instance" "dev6" {
     Name = "dev6"
   }
   vpc_security_group_ids = [ "${aws_security_group.ssh-access-us-east-1.id}" ]
+  depends_on = [
+    aws_dynamodb_table.HOMOLOG-dynamodb
+  ]
 }
 
 resource "aws_s3_bucket" "dev4" {
@@ -70,5 +73,25 @@ resource "aws_s3_bucket" "dev4" {
 
   tags = {
     Name        = "srv-dev4"
+  }
+}
+
+resource "aws_dynamodb_table" "HOMOLOG-dynamodb" {
+  provider = aws.us-east-1
+  name           = "GameScores"
+  billing_mode   = "PAY_PER_REQUEST"
+  #read_capacity  = 20
+  #write_capacity = 20
+  hash_key       = "UserId"
+  range_key      = "GameTitle"
+
+  attribute {
+    name = "UserId"
+    type = "S"
+  }
+
+  attribute {
+    name = "GameTitle"
+    type = "S"
   }
 }

@@ -26,7 +26,7 @@ resource "aws_security_group" "ssh-access" {
 }
 
 resource "aws_security_group" "ssh-access-us-east-1" {
-  provider    = "aws.us-east-1"
+  provider    = aws.us-east-1
   name        = "ssh-access-us-east-1"
   description = "Allow SSH inbound traffic"
   #vpc_id      = aws_vpc.main.id

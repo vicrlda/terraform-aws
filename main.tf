@@ -44,9 +44,9 @@ resource "aws_instance" "dev4" {
 }
 
 resource "aws_instance" "dev5" {
-  ami           = "ami-045137e8d34668746"
+  ami           = var.amis["us-east-2"]
   instance_type = "t2.micro"
-  key_name      = "terraform-kali"
+  key_name      = var.key_name
   tags = {
     Name = "dev5"
   }
@@ -55,9 +55,9 @@ resource "aws_instance" "dev5" {
 
 resource "aws_instance" "dev6" {
   provider      = aws.us-east-1
-  ami           = "ami-09cce346b3952cce3"
+  ami           = var.amis["us-east-1"]
   instance_type = "t2.micro"
-  key_name      = "terraform-kali"
+  key_name      = var.key_name
   tags = {
     Name = "dev6"
   }

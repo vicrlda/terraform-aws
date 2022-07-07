@@ -76,6 +76,15 @@ resource "aws_instance" "dev6" {
   }
 } */
 
+resource "aws_s3_bucket" "NEW-deploy" {
+  bucket = "novo-item"
+  acl = "private"
+
+  tags = {
+    Name        = "novo-item"
+  }
+}
+
 resource "aws_dynamodb_table" "HOMOLOG-dynamodb" {
   provider = aws.us-east-1
   name           = "GameScores"
